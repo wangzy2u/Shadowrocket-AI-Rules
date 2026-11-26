@@ -10,9 +10,10 @@
 
 ## 文件边界
 
-- 根目录仅保留 `Personal.conf` 作为唯一使用和导入的配置；旧 `Shadowrocket.conf` 已保存在 `.backups/` 中的 `.bak` 文件，供对比和恢复，不重新添加第二份根目录配置。
-- 根目录原有八个 `.list` 及 `LICENSE` 保留为上游参考，个人改造不得直接覆盖或重排它们。
+- 根目录仅保留 `Shadowrocket-AI-Rules.conf` 作为唯一使用和导入的配置；旧 `Shadowrocket.conf` 已保存在 `.backups/` 中的 `.bak` 文件，供对比和恢复，不重新添加第二份根目录配置。
+- 根目录八个 `.list` 是本项目维护的专项规则，源自 LingJingMaster；`Shadowrocket-AI-Rules.conf` 通过本仓库 `main` 分支的 Raw 地址加载。更新时审核差异并保留来源署名；未要求修改规则内容时不覆盖或重排这些文件。`LICENSE` 保留上游署名。
 - `README.md` 是唯一使用说明，集中维护项目入口、中文使用、规则来源、验证及备份说明；不另建重复 README，配置调整时同步维护本文档。
+- 配置下载二维码保存在 `assets/config-qrcode.png`，编码当前主配置的 Raw 地址；配置重命名或下载地址变化时，同步更新图片并解码核对。
 - `.backups/` 仅用于本地回滚，必须被 Git 忽略，不参与规则加载或上传；备份不能作为当前配置或当前维护约束使用。
 - 当前不增加自动化构建、跨客户端生成器或 Mihomo 配置。补充规则规模足够大时再考虑拆分目录。
 - 不在通用配置及项目文档中写入节点定义、VPS 密码、私钥、UUID、订阅地址、访问令牌、证书或设备日志中的敏感信息；节点凭据留在客户端。
@@ -22,6 +23,8 @@
 ## 分流与防泄露
 
 - 本地 AI 核心域名及必要关联端点必须先于远程服务分类、广告规则和国内直连规则，策略写为 `PROXY`；明确的协议安全拦截可以在其之前。
+- 新增已确认的核心域名时，同时更新 `AI.list` 与 `Shadowrocket-AI-Rules.conf` 的前置代理段。使用明确后缀或精确主机，不恢复 AI 品牌的宽泛关键字匹配或缺少现行依据的历史 IP。
+- WorkOS、Cloudflare、Apple 验证等共享依赖仅放行已核实的精确主机，并说明对其他应用的影响；不将整个云平台、npm、第三方 MCP 或遥测整域提前代理。GitHub Copilot 的共享 GitHub 登录保留开发工具策略。
 - 不将核心规则改为可选 `DIRECT` 的策略组；不加入地区筛选、自动测速、故障切换、随机或负载均衡策略。
 - 保留 DeepSeek 等国内 AI 的显式直连，以及汇丰香港和其他香港银行的独立策略。境外专项直连必须写清适用范围和原因。
 - 保留 HTTPDNS 拦截、代理侧 QUIC 拦截和 `udp-policy-not-supported-behaviour = REJECT`。
@@ -34,7 +37,8 @@
 ## 来源与更新
 
 - 个人主配置不设置指向上游的 `update-url`，避免覆盖个人约束。
-- 可信远程规则来源限于已审核的 LingJingMaster、Loyalsoldier、blackmatrix7、ACL4SSR；新增来源必须先检查内容类型、规则语法和策略范围。
+- 可信规则来源为本仓库及已审核的 LingJingMaster、Loyalsoldier、blackmatrix7、ACL4SSR；新增来源必须先检查内容类型、规则语法和策略范围。
+- 八份专项规则统一引用本仓库，LingJingMaster 变更经审核后手动同步；不通过切回上游引用替代同步。公共规则继续保留外部更新能力。
 - 国内基础采用 Loyalsoldier/surge-rules 的 `direct.txt` 和 `cncidr.txt`，同源 `proxy.txt` 放在直连名单之前，`private.txt` 补充本地名称。不要重新叠加 blackmatrix7 的 China、Global、BiliBili 或 Lan 列表；其他专项和安全规则暂时保留，后续单独审核更新状态。
 - Johnshall 用于广告规则参考和 GEOIP 兜底方式参考。其懒人版仍引用 blackmatrix7，国内外划分版主要依赖客户端 GEOIP；不能将它描述为另一个独立国内域名库，也不把含 `[Rule]` 和逐条策略的整份 `.conf` 当作普通 `.list` 引入。
 - 维护状态要结合生成工作流、发布分支时间与实际内容核对；每日构建不能单独证明所有底层数据都已刷新。记录本次检查的版本或摘要。
