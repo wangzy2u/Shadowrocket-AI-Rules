@@ -1,0 +1,22 @@
+.DS_Store
+DB/
+
+# 本地回滚、临时文件与编辑器状态不上传。
+/.backups/
+/.local/
+/.vscode/
+/.idea/
+*.bak
+*.tmp
+*.log
+
+# 节点、订阅和证书等私密材料仅保存在本机。
+.env
+.env.*
+*.local.conf
+*.private.conf
+*.pem
+*.key
+*.p12
+*.pfx
+*.mobileconfig
