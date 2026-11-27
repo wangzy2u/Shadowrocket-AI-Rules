@@ -43,7 +43,7 @@ https://raw.githubusercontent.com/wangzy2u/Shadowrocket-AI-Rules/main/Shadowrock
 | 🏦 汇丰香港、其他香港银行 | DIRECT |
 | 📈 香港及海外券商 | PROXY |
 | 🍏 普通 Apple 服务、苹果推送 | PROXY |
-| 🍎 `apple.com.cn`、`icloud.com.cn` | DIRECT |
+| 🍎 `apple.com.cn`、`icloud.com.cn`、`icloud-content.com.cn` | DIRECT |
 | 🏠 局域网名称及私网地址 | DIRECT |
 | 🧱 HTTPDNS、广告及追踪域名 | REJECT |
 | 🌍 通用代理域名 | PROXY |
@@ -65,7 +65,7 @@ AI 核心规则先于广告、普通服务分类和国内直连规则；通用�
 
 Gemini 的共享认证端点也优先代理，不受普通 Google 策略组影响。Claude Code 的第三方 MCP、Bedrock、Vertex 及自定义网关按实际目标域名分流。
 
-WorkOS、Cloudflare 验证及 Apple 共享依赖采用精确主机规则，其他应用访问同一主机也会走代理。GitHub Copilot 的共享 GitHub 登录仍受开发工具策略控制；npm、通用云存储按各自规则处理。
+WorkOS、Cloudflare 验证及 Apple 共享依赖采用精确主机规则，其他应用访问同一主机也会走代理。GitHub Copilot 的共享 GitHub 登录仍受开发工具策略控制；`npmjs.com`、`npmjs.org` 随 `GitHub.list` 归入开发工具策略（默认代理），通用云存储按各自规则处理。
 
 ## DNS 与隐私
 
@@ -111,7 +111,7 @@ WebRTC 端口限制可能影响语音和视频通话，不能覆盖所有 STUN /
 
 ## 验证状态与反馈
 
-截至 2026-11-27，已完成配置结构、策略引用、规则优先级及远程规则读取的静态检查。Shadowrocket 导入、代理故障重试，以及 DNS、WebRTC、IPv6 和 UDP 的实际行为仍待实机验证。
+截至 2026-11-28，已完成配置结构、策略引用、规则优先级及远程规则读取的静态检查。Shadowrocket 导入、代理故障重试，以及 DNS、WebRTC、IPv6 和 UDP 的实际行为仍待实机验证。
 
 故障测试应保持隧道开启，触发应用重试并检查连接记录，确认 AI 请求没有转为直连。
 
